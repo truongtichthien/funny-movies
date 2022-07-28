@@ -10,7 +10,7 @@
   const cookieParser = require('cookie-parser');
 
   const userCtrl = require('./backend/routes/route.user');
-  // const videoCtrl = require('./server/routes/route.video');
+  const videoCtrl = require('./backend/routes/route.video');
 
   const app = express();
   // define root directory for resources
@@ -21,7 +21,7 @@
   app.use(cookieParser());
 
   app.use('/api/users', userCtrl);
-  // app.use('/api/videos', videoCtrl);
+  app.use('/api/videos', videoCtrl);
 
   /** Connect Database */
   const {connect} = mongoose;

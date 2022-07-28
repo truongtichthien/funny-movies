@@ -20,8 +20,8 @@ export default () => {
         </g>
       </svg>
     </i>
-    <a className={joinCls([cls.appTitle, 'hide-sm'])} title="Funny Movies">
+    <div className={joinCls([cls.appTitle, 'hide-sm'])} title="Funny Movies">
       Funny Movies
-    </a>
+    </div>
   </div>
 )};

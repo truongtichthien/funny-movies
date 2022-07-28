@@ -6,7 +6,7 @@
 
   /** Create Schema */
   const VideoSchema = new Schema({
-    url: String,
+    id: String,
     title: String,
     description: String,
     shared_by: {

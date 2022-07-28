@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {joinCls, validateYouTubeUrl} from '../../utilities';
+import {apiGetYoutubeInfo, apiStoreVideoInfo} from '../../api';
 import cls from './Share.module.scss';
 
 export default () => {
   const [url, setUrl] = useState('');
   const [validUrl, setValidUrl] = useState(false);
+  const [sharing, setSharing] = useState(false);
   const loggedIn = useSelector(({loggedIn}) => loggedIn);
+  const currentUser = useSelector(({currentUser}) => currentUser);
 
   const handleUrlChange = (e) => {
     const val = e.target.value;
@@ -14,6 +17,37 @@ export default () => {
   }
 
   const handleShare = () => {
+    setSharing(true);
+
+    return apiGetYoutubeInfo({id: validUrl})
+      .then(function (response) {
+        const {data: {items} = {}} = response;
+        if (items && items.length) {
+          const {snippet: {title, description}} = items[0];
+          const {username} = currentUser;
+
+          return apiStoreVideoInfo({
+            id: validUrl,
+            title,
+            description: description.slice(0, 100),
+            createdBy: username
+          })
+            .catch(function (err) {
+              const {response: {data}} = err;
+              console.error('Cannot share the video!', data);
+            });
+        } else {
+          console.error('Retrieve video information failed!');
+        }
+      })
+      .catch(function (err) {
+        console.error('Retrieve video information failed!', err);
+      })
+      .finally(function () {
+        setUrl('');
+        setValidUrl(false);
+        setSharing(false);
+      });
   };
 
   useEffect(() => {
@@ -36,8 +70,8 @@ export default () => {
           </div>
           <div className={joinCls([cls.msg, cls.error])}>{!!url && !validUrl && 'YouTube URL is invalid!'}</div>
           <button type="button"
-                  className={joinCls([cls.btn, cls.primaryBtn, !validUrl && cls.disabled])}
-                  onClick={handleShare}>Share
+                  className={joinCls([cls.btn, cls.primaryBtn, (!validUrl || sharing) && cls.disabled])}
+                  onClick={handleShare}>{sharing ? 'Sharing...' : 'Share'}
           </button>
         </fieldset>
       ) : <div className={cls.announcement}>You need to log-in to share a video!</div>}
