@@ -106,13 +106,6 @@
         margin: 0 0.4rem;
       }
 
-      &.disabled {
-        pointer-events: none;
-        color: #8e8e8e;
-        background-color: var(--yellowSandColor);
-        border-color: var(--yellowSandColor);
-      }
-
       &.primaryBtn {
         background: var(--carrotColor) url('/grain.png');
         border-color: var(--orangeColor);
@@ -122,6 +115,13 @@
       &.secondaryBtn {
         background: var(--yellowSandColor) url('/grain.png');
         color: var(--blackColor);
+        border-color: var(--yellowSandColor);
+      }
+
+      &.disabled {
+        pointer-events: none;
+        color: #8e8e8e;
+        background-color: var(--yellowSandColor);
         border-color: var(--yellowSandColor);
       }
     }

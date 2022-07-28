@@ -89,4 +89,13 @@
       }
     }
   }
+
+  .announcement {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--blackColor);
+  }
 }
