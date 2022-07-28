@@ -81,7 +81,7 @@
       color: var(--blackColor);
       opacity: 0.9;
       padding: 0 1rem;
-      background-color: #fff;
+      background: #fff url('/grain.png');
       border: 1px solid #ccc;
       border-radius: 4px;
       transition: border-color ease-in-out .15s;
@@ -112,18 +112,18 @@
         background-color: var(--yellowSandColor);
         border-color: var(--yellowSandColor);
       }
-    }
 
-    .primaryBtn {
-      background: var(--carrotColor) url('/grain.png');
-      border-color: var(--orangeColor);
-      color: var(--yellowSandColor);
-    }
+      &.primaryBtn {
+        background: var(--carrotColor) url('/grain.png');
+        border-color: var(--orangeColor);
+        color: var(--yellowSandColor);
+      }
 
-    .secondaryBtn {
-      background: var(--yellowSandColor) url('/grain.png');
-      color: var(--blackColor);
-      border-color: var(--yellowSandColor);
+      &.secondaryBtn {
+        background: var(--yellowSandColor) url('/grain.png');
+        color: var(--blackColor);
+        border-color: var(--yellowSandColor);
+      }
     }
   }
 }

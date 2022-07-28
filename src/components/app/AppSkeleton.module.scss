@@ -1,17 +1,14 @@
 .appContainer {
-  border: 1px #000 solid;
-  max-width: var(--containerWidth);
-  margin: 0 auto;
   min-height: 100vh;
   position: relative;
   display: flex;
-  flex-direction: column;
-  background: #fff;
+  background: var(--lightYellowSandColor) url('/grain.png');
 }
 
 .appMain {
+  max-width: var(--containerWidth);
+  margin: var(--headerHeight) auto 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top: var(--headerHeight);
 }

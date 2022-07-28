@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import cls from './AppSkeleton.module.scss';
 
 const AppSkeleton = ({children}) => (
-  <div className={cls.appMain}>
+  <main className={cls.appMain}>
     {children}
-  </div>
+  </main>
 );
 
 AppSkeleton.propTypes = {
