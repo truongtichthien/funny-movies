@@ -10,3 +10,5 @@ export const apiStoreVideoInfo = ({id, title, description, createdBy}) => axios.
   description,
   createdBy
 });
+
+export const apiGetVideos = () => axios.get('/api/videos');

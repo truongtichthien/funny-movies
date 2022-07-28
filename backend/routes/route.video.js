@@ -8,6 +8,38 @@
   const videoModel = require('../models/model.video');
   const userModel = require('../models/model.user');
 
+  function createVideoQuery() {
+    return [
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'shared_by',
+          foreignField: '_id',
+          as: 'sharedBy'
+        }
+      }
+    ];
+  }
+
+  router.get('/', function (req, res) {
+    videoModel
+      .aggregate(createVideoQuery())
+      .then(function (videos) {
+        res.json(videos.map(function (v) {
+          const videoEntity = _.pick(v, ['id', 'title', 'description']);
+          const {sharedBy} = v;
+          if (sharedBy.length) {
+            const {username} = sharedBy[0];
+            return {...videoEntity, sharedBy: {username}};
+          }
+          return videoEntity;
+        }));
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
+  });
+
   router.post('/', function (req, res) {
     const id = req.body?.id;
     const title = req.body?.title;

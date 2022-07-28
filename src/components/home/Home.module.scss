@@ -1,0 +1,52 @@
+.appHome {
+  background: var(--yellowSandColor) url('/grain.png');
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-top: 10rem;
+
+  .videosContainer {
+    margin: 0 auto;
+    max-width: 80%;
+
+    .videoWrapper {
+      display: flex;
+      padding: 1rem 0;
+      border-bottom: 1px var(--blackColor) dashed;
+
+      .info {
+        flex: 1;
+        margin-left: 2rem;
+
+        .title {
+          font-size: 1.3rem;
+          color: var(--carrotColor);
+          font-weight: bold;
+          margin-bottom: 1rem;
+          max-width: 80%;
+        }
+
+        .sharedBy {
+          font-size: 1.2rem;
+          font-weight: 500;
+          margin-bottom: 1rem;
+        }
+
+        .votes {
+          margin-bottom: 1rem;
+        }
+
+        .desc {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .announcement {
+    margin: 0 auto;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--blackColor);
+  }
+}
