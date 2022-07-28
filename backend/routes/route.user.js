@@ -27,7 +27,7 @@
           // login
           const {password: pwd} = _.pick(users[0], 'password');
           if (pwd === password) {
-            const userEntity = _.pick(users[0], 'username');
+            const userEntity = _.pick(users[0], ['username', '_id']);
             const accessToken = createAccessToken(users[0]);
 
             res.json({
@@ -42,7 +42,7 @@
           // register
           userModel.create({username, password})
             .then(function (user) {
-              const userEntity = _.pick(user, 'username');
+              const userEntity = _.pick(user, ['username', '_id']);
               const accessToken = createAccessToken(user);
 
               res.json({

@@ -18,6 +18,14 @@
           foreignField: '_id',
           as: 'sharedBy'
         }
+      },
+      {
+        $lookup: {
+          from: 'votes',
+          localField: '_id',
+          foreignField: 'video_id',
+          as: 'votedBy'
+        }
       }
     ];
   }
@@ -28,11 +36,16 @@
       .sort({'timestamp': SORT_DESC})
       .then(function (videos) {
         res.json(videos.map(function (v) {
-          const videoEntity = _.pick(v, ['id', 'title', 'description']);
-          const {sharedBy} = v;
+          const videoEntity = _.pick(v, ['_id', 'id', 'title', 'description', 'votedBy']);
+          const {sharedBy, votedBy} = v;
           if (sharedBy.length) {
-            const {username} = sharedBy[0];
-            return {...videoEntity, sharedBy: {username}};
+            return {
+              ...videoEntity,
+              sharedBy: _.pick(sharedBy[0], ['_id', 'username']),
+              votedBy: _.map(votedBy, function (v) {
+                return {user: v.user_id, vote: v.vote}
+              })
+            };
           }
           return videoEntity;
         }));
@@ -60,8 +73,8 @@
                 console.log('_id', userId);
                 videoModel.create({id, title, description, shared_by: userId, timestamp: Date.now()})
                   .then(function (video) {
-                    const videoEntity = _.pick(video, ['title', 'description', 'id']);
-                    const userEntity = _.pick(users[0], 'username');
+                    const videoEntity = _.pick(video, ['title', 'description', 'id', '_id']);
+                    const userEntity = _.pick(users[0], 'username', '_id');
                     console.log('videoEntity', videoEntity);
                     res.json({
                       msg: 'Video has been shared!',
