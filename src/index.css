@@ -5,6 +5,7 @@
 }
 
 :root {
+  --headerHeight: 8rem;
   --containerWidth: 100rem;
   --orangeColor: #e68966;
   --carrotColor: #d35244;
