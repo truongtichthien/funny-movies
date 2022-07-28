@@ -1,0 +1,10 @@
+.appContainer {
+  border: 1px #000 solid;
+  max-width: var(--containerWidth);
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}

@@ -5,10 +5,8 @@
 }
 
 :root {
-  --adi-orange: #ff5817;
-  --adi-black: #202020;
-  --adi-yellow: #f8e71c;
-  --app-header-background-color: #fff;
+  --containerWidth: 100rem;
+  --orangeColor: #e68966;
 }
 
 html, body {
@@ -17,20 +15,30 @@ html, body {
 }
 
 html {
-  color: var(--adi-black);
+  color: #202020;
   font-size: 62.5%;
 }
 
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
+}
+
+@media screen and (max-width: 768px) {
+  .show-sm {
+    display: block !important;
+  }
+
+  .hide-sm {
+    display: none !important;
+  }
 }
