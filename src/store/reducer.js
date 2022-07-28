@@ -7,9 +7,10 @@ const loggedIn = 'loggedIn';
 const currentUser = 'currentUser';
 const loading = 'loading';
 
-const initialState = {
+const initialAuth = {
   [loggedIn]: false,
-  [currentUser]: {}
+  [currentUser]: {},
+  [loading]: false
 };
 
 const handlersAuth = {
