@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {apiGetVideos} from '../../api';
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {getVideos} from '../../store/action';
 import cls from './Home.module.scss';
-import {useSelector} from "react-redux";
 
-const VideoItem = ({id, title, description, sharedBy}) => {
-  const loggedIn = useSelector(({loggedIn}) => loggedIn);
+const VideoItem = ({id}) => {
+  const loggedIn = useSelector(({authentication: {loggedIn}}) => loggedIn);
+  const {title, description, sharedBy: {username}} = useSelector(({videos: {list}}) => list[id]);
 
   return (
     <div className={cls.videoWrapper}>
@@ -14,7 +15,7 @@ const VideoItem = ({id, title, description, sharedBy}) => {
               allowFullScreen></iframe>
       <div className={cls.info}>
         <div className={cls.title}>{title}</div>
-        <div className={cls.sharedBy}>{`Shared by ${sharedBy}`}</div>
+        <div className={cls.sharedBy}>{`Shared by ${username}`}</div>
         {loggedIn && <div className={cls.votes}>votes</div>}
         <div className={cls.desc}>Description:</div>
         <div className={cls.desc}>{description}</div>
@@ -24,30 +25,20 @@ const VideoItem = ({id, title, description, sharedBy}) => {
 };
 
 export default () => {
-  const [loading, setLoading] = useState(false);
-  const [videos, setVideos] = useState([]);
+  const dispatcher = useDispatch();
+  const loading = useSelector(({videos: {loading}}) => loading);
+  const videos = useSelector(({videos: {list}}) => list);
 
   useEffect(() => {
-    setLoading(true);
-    apiGetVideos()
-      .then(function (res) {
-        const {data} = res;
-        setVideos(data);
-      })
-      .catch(function (err) {
-        console.error('Cannot get videos', err);
-      })
-      .finally(function () {
-        setLoading(false);
-      });
+    dispatcher(getVideos());
   }, []);
 
   return (
     <div className={cls.appHome}>
       {loading && <div className={cls.announcement}>Retrieving YouTube videos...</div>}
       <div className={cls.videosContainer}>
-        {videos.map(({title, description, id, sharedBy: {username}}) => {
-          return <VideoItem key={id} id={id} title={title} description={description} sharedBy={username}/>
+        {Object.keys(videos).map((id) => {
+          return <VideoItem key={id} id={id}/>
         })}
       </div>
     </div>
