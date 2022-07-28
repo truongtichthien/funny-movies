@@ -8,8 +8,8 @@ export default () => {
   const [url, setUrl] = useState('');
   const [validUrl, setValidUrl] = useState(false);
   const [sharing, setSharing] = useState(false);
-  const loggedIn = useSelector(({loggedIn}) => loggedIn);
-  const currentUser = useSelector(({currentUser}) => currentUser);
+  const loggedIn = useSelector(({authentication: {loggedIn}}) => loggedIn);
+  const currentUser = useSelector(({authentication: {currentUser}}) => currentUser);
 
   const handleUrlChange = (e) => {
     const val = e.target.value;

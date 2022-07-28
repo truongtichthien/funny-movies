@@ -8,7 +8,7 @@ import cls from './Header.module.scss';
 const GreetingBar = () => {
   const navigate = useNavigate();
   const dispatcher = useDispatch();
-  const currentUser = useSelector(({currentUser}) => currentUser);
+  const currentUser = useSelector(({authentication: {currentUser}}) => currentUser);
 
   const handleLogout = () => {
     dispatcher(logout());
@@ -73,7 +73,7 @@ const LoginBar = () => {
 };
 
 export default () => {
-  const loggedIn = useSelector(({loggedIn}) => loggedIn);
+  const loggedIn = useSelector(({authentication: {loggedIn}}) => loggedIn);
 
   return (
     <div className={cls.loginBar}>
