@@ -12,7 +12,8 @@
     shared_by: {
       type: Schema.Types.ObjectId,
       ref: 'users'
-    }
+    },
+    timestamp: Number
   });
 
   module.exports = mongoose.model('videos', VideoSchema, 'videos');

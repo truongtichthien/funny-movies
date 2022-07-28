@@ -5,6 +5,7 @@
   const express = require('express');
   const router = express.Router();
 
+  const SORT_DESC = -1;
   const videoModel = require('../models/model.video');
   const userModel = require('../models/model.user');
 
@@ -24,6 +25,7 @@
   router.get('/', function (req, res) {
     videoModel
       .aggregate(createVideoQuery())
+      .sort({'timestamp': SORT_DESC})
       .then(function (videos) {
         res.json(videos.map(function (v) {
           const videoEntity = _.pick(v, ['id', 'title', 'description']);
@@ -56,7 +58,7 @@
               if (users.length > 0) {
                 const userId = _.pick(users[0], '_id');
                 console.log('_id', userId);
-                videoModel.create({id, title, description, shared_by: userId})
+                videoModel.create({id, title, description, shared_by: userId, timestamp: Date.now()})
                   .then(function (video) {
                     const videoEntity = _.pick(video, ['title', 'description', 'id']);
                     const userEntity = _.pick(users[0], 'username');

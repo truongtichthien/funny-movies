@@ -20,10 +20,12 @@
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(cookieParser());
-  app.use('/', express.static(path.join(__dirname, 'build')))
-
+  app.use('/', express.static(path.join(__dirname, 'build')));
   app.use('/api/users', userCtrl);
   app.use('/api/videos', videoCtrl);
+  app.all('/*', function (req, res) {
+    res.redirect('/');
+  });
 
   /** Connect Database */
   const {connect} = mongoose;
