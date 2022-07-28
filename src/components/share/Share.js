@@ -29,7 +29,7 @@ export default () => {
           return apiStoreVideoInfo({
             id: validUrl,
             title,
-            description: description.slice(0, 100),
+            description: description.slice(0, 300),
             createdBy: username
           })
             .catch(function (err) {
