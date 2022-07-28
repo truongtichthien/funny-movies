@@ -7,6 +7,9 @@
 :root {
   --containerWidth: 100rem;
   --orangeColor: #e68966;
+  --carrotColor: #d35244;
+  --blackColor: #4c5057;
+  --yellowSandColor: #e6e1d0;
 }
 
 html, body {

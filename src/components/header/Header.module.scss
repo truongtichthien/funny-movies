@@ -25,6 +25,7 @@
   .logoWrapper {
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     .appLogo {
       color: #f6edd8;
@@ -62,17 +63,67 @@
   }
 
   .loginBar {
-    border: 1px #000 solid;
+    display: flex;
+    align-items: center;
 
-    .input {
-
+    .greeting {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--yellowSandColor);
+      margin-right: 0.6rem;
     }
 
-    .loginBtn {
+    .input {
+      outline: none;
+      height: 3rem;
+      width: 100%;
+      font-size: 1.3rem;
+      color: var(--blackColor);
+      opacity: 0.9;
+      padding: 0 1rem;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color ease-in-out .15s;
+
+      &:nth-child(2) {
+        margin: 0 0.4rem;
+      }
+    }
+
+    .btn {
+      padding: 0 1rem;
+      height: 3rem;
+      border: 0.1rem solid;
+      outline: none;
+      text-decoration: none;
+      font-size: 1.3rem;
+      line-height: 1.5;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:nth-child(2) {
+        margin: 0 0.4rem;
+      }
 
       &.disabled {
         pointer-events: none;
+        color: #8e8e8e;
+        background-color: var(--yellowSandColor);
+        border-color: var(--yellowSandColor);
       }
+    }
+
+    .primaryBtn {
+      background: var(--carrotColor) url('/grain.png');
+      border-color: var(--orangeColor);
+      color: var(--yellowSandColor);
+    }
+
+    .secondaryBtn {
+      background: var(--yellowSandColor) url('/grain.png');
+      color: var(--blackColor);
+      border-color: var(--yellowSandColor);
     }
   }
 }
