@@ -20,6 +20,6 @@
     }
   });
 
-  module.exports = mongoose.model('vote', VoteSchema, 'vote');
+  module.exports = mongoose.model('votes', VoteSchema, 'votes');
 
 })();
