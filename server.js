@@ -8,6 +8,7 @@
   const morgan = require('morgan');
   const bodyParser = require('body-parser');
   const cookieParser = require('cookie-parser');
+  const path = require('path');
 
   const userCtrl = require('./backend/routes/route.user');
   const videoCtrl = require('./backend/routes/route.video');
@@ -19,6 +20,7 @@
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(cookieParser());
+  app.use('/', express.static(path.join(__dirname, 'build')))
 
   app.use('/api/users', userCtrl);
   app.use('/api/videos', videoCtrl);
