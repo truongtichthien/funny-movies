@@ -12,6 +12,7 @@
 
   const userCtrl = require('./backend/routes/route.user');
   const videoCtrl = require('./backend/routes/route.video');
+  const voteCtrl = require('./backend/routes/route.vote');
 
   const app = express();
   // define root directory for resources
@@ -23,6 +24,7 @@
   app.use('/', express.static(path.join(__dirname, 'build')));
   app.use('/api/users', userCtrl);
   app.use('/api/videos', videoCtrl);
+  app.use('/api/vote', voteCtrl);
   app.all('/*', function (req, res) {
     res.redirect('/');
   });

@@ -35,3 +35,18 @@ export const getVideosSuccess = ({videos}) => ({
 export const getVideosError = () => ({
   type: ACTION_TYPE.GET_VIDEOS_ERROR
 });
+
+export const voteVideo = ({videoId, value}) => ({
+  type: ACTION_TYPE.VOTE_VIDEO,
+  videoId,
+  value
+});
+
+export const voteVideoSuccess = ({value}) => ({
+  type: ACTION_TYPE.VOTE_VIDEO_SUCCESS
+});
+
+export const voteVideoError = ({value}) => ({
+  type: ACTION_TYPE.VOTE_VIDEO_ERROR
+});
+

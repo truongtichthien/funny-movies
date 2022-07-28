@@ -12,3 +12,5 @@ export const apiStoreVideoInfo = ({id, title, description, createdBy}) => axios.
 });
 
 export const apiGetVideos = () => axios.get('/api/videos');
+
+export const apiVoteVideo = ({videoId, userId, value}) => axios.post('/api/vote', {videoId, userId, value});
