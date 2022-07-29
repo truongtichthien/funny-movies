@@ -6,23 +6,28 @@ const createReducer = (initialState, handlers) => (state = initialState, action)
 const loggedIn = 'loggedIn';
 const currentUser = 'currentUser';
 const loading = 'loading';
+const failed = 'failed';
 
 const initialAuth = {
   [loggedIn]: false,
   [currentUser]: {},
-  [loading]: false
+  [loading]: false,
+  [failed]: false
 };
 
 const handlersAuth = {
+  [ACTION_TYPE.LOG_IN_LOADING]: (state, {status}) => {
+    return {...state, [loading]: status};
+  },
   [ACTION_TYPE.LOG_IN_SUCCESS]: (state, {payload: {authenticated, user, token}}) => {
     // document.cookie = `fm-access-token=${token};`;
-    return {...state, [loggedIn]: authenticated, [currentUser]: {...user, token}};
+    return {...state, [loggedIn]: authenticated, [currentUser]: {...user, token}, [loading]: false};
   },
   [ACTION_TYPE.LOG_IN_ERROR]: (state) => {
-    return {...state, [loggedIn]: false, [currentUser]: {}};
+    return {...state, [loggedIn]: false, [currentUser]: {}, [failed]: true};
   },
   [ACTION_TYPE.LOG_OUT]: (state) => {
-    return {...state, [loggedIn]: false, [currentUser]: {}};
+    return {...state, [loggedIn]: false, [currentUser]: {}, [failed]: false};
   }
 };
 
@@ -61,7 +66,6 @@ const handlersVideo = {
       voted = [...votedBy];
       voted[hasVotedIndex].vote = value;
     }
-    console.log({...state, list: {...state.list, [videoId]: {...videoEntity, votedBy: [...voted]}}});
     return {...state, list: {...state.list, [videoId]: {...videoEntity, votedBy: [...voted]}}};
   },
   [ACTION_TYPE.VOTE_VIDEO_ERROR]: (state) => {

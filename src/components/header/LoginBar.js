@@ -20,15 +20,17 @@ const GreetingBar = () => {
 
   return (
     <>
-      <div className={cls.greeting}>{`Welcome ${currentUser.username}!`}</div>
-      <button type="button"
-              className={joinCls([cls.btn, cls.primaryBtn])}
-              onClick={navToShare}>Share a movie
-      </button>
-      <button type="button"
-              className={joinCls([cls.btn, cls.secondaryBtn])}
-              onClick={handleLogout}>Logout
-      </button>
+      <div className={cls.loginGroupInput}>
+        <div className={cls.greeting}>{`Welcome ${currentUser.username}!`}</div>
+        <button type="button"
+                className={joinCls([cls.btn, cls.primaryBtn])}
+                onClick={navToShare}>Share a movie
+        </button>
+        <button type="button"
+                className={joinCls([cls.btn, cls.secondaryBtn])}
+                onClick={handleLogout}>Logout
+        </button>
+      </div>
     </>
   );
 };
@@ -37,6 +39,8 @@ const LoginBar = () => {
   const dispatcher = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const loginFailed = useSelector(({authentication: {failed}}) => failed);
+  const loggingIn = useSelector(({authentication: {loading}}) => loading);
 
   const handleChangeUsername = (e) => {
     const val = e.target.value;
@@ -54,20 +58,23 @@ const LoginBar = () => {
 
   return (
     <>
-      <input type="text"
-             className={cls.input}
-             placeholder="username..."
-             value={username}
-             onChange={handleChangeUsername}/>
-      <input type="password"
-             className={cls.input}
-             placeholder="password..."
-             value={password}
-             onChange={handleChangePassword}/>
-      <button type="button"
-              className={joinCls([cls.btn, cls.primaryBtn, (!username || !password) && cls.disabled])}
-              onClick={handleLogin}>Login/Register
-      </button>
+      <div className={cls.loginGroupInput}>
+        <input type="text"
+               className={cls.input}
+               placeholder="username..."
+               value={username}
+               onChange={handleChangeUsername}/>
+        <input type="password"
+               className={cls.input}
+               placeholder="password..."
+               value={password}
+               onChange={handleChangePassword}/>
+        <button type="button"
+                className={joinCls([cls.btn, cls.primaryBtn, (!username || !password || loggingIn) && cls.disabled])}
+                onClick={handleLogin}>{loggingIn ? 'Processing...' : 'Login/Register'}
+        </button>
+      </div>
+      {loginFailed && <div className={cls.errorMsg}>Login failed! Please check your password!</div>}
     </>
   );
 };

@@ -5,12 +5,13 @@ import {ACTION_TYPE} from '../constants';
 
 import {apiGetVideos, apiLogin, apiVoteVideo} from '../api';
 import {
-  loginSuccess, loginError,
+  loginLoading, loginSuccess, loginError,
   getVideosLoading, getVideosSuccess, getVideosError,
   voteVideoSuccess, voteVideoError
 } from './action';
 
 function* performLogin({payload}) {
+  yield put(loginLoading({status: true}));
   try {
     const {username, password} = payload;
     const response = yield call(apiLogin, {username, password});
@@ -19,6 +20,7 @@ function* performLogin({payload}) {
   } catch (error) {
     yield put(loginError());
   } finally {
+    yield put(loginLoading({status: false}));
   }
 }
 

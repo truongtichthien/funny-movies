@@ -64,13 +64,19 @@
 
   .loginBar {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 
     .greeting {
       font-size: 1.4rem;
       font-weight: 500;
       color: var(--yellowSandColor);
       margin-right: 0.6rem;
+    }
+
+    .loginGroupInput {
+      display: flex;
+      align-items: center;
     }
 
     .input {
@@ -101,6 +107,7 @@
       line-height: 1.5;
       border-radius: 3px;
       cursor: pointer;
+      white-space: nowrap;
 
       &:nth-child(2) {
         margin: 0 0.4rem;
@@ -123,6 +130,23 @@
         color: #8e8e8e;
         background-color: var(--yellowSandColor);
         border-color: var(--yellowSandColor);
+      }
+    }
+
+    .errorMsg {
+      color: var(--lightYellowSandColor);
+      font-size: 1.2rem;
+      height: 0;
+      transform: translateY(0.5rem);
+
+      &::before {
+        content: 'Error';
+        background: var(--lightYellowSandColor);
+        color: var(--carrotColor);
+        border-radius: 0.3rem;
+        margin-right: 0.5rem;
+        padding: 0.2rem 0.5rem;
+        font-weight: bold;
       }
     }
   }

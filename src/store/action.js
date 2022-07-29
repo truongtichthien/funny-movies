@@ -5,6 +5,11 @@ export const login = ({username, password}) => ({
   payload: {username, password}
 });
 
+export const loginLoading = ({status}) => ({
+  type: ACTION_TYPE.LOG_IN_LOADING,
+  status
+});
+
 export const loginSuccess = ({authenticated, user, token}) => ({
   type: ACTION_TYPE.LOG_IN_SUCCESS,
   payload: {authenticated, user, token}
