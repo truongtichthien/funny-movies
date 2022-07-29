@@ -42,11 +42,12 @@ export const voteVideo = ({videoId, value}) => ({
   value
 });
 
-export const voteVideoSuccess = ({value}) => ({
-  type: ACTION_TYPE.VOTE_VIDEO_SUCCESS
+export const voteVideoSuccess = ({vote}) => ({
+  type: ACTION_TYPE.VOTE_VIDEO_SUCCESS,
+  vote
 });
 
-export const voteVideoError = ({value}) => ({
+export const voteVideoError = () => ({
   type: ACTION_TYPE.VOTE_VIDEO_ERROR
 });
 

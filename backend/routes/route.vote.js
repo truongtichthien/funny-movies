@@ -64,7 +64,7 @@
         user_id: objectId(userId),
       })
       .then(function (vote) {
-        if (vote._id) {
+        if (vote) {
           vote.vote = value;
           vote.save()
             .then(function () {

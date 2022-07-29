@@ -46,6 +46,27 @@ const handlersVideo = {
   },
   [ACTION_TYPE.GET_VIDEOS_ERROR]: (state) => {
     return state;
+  },
+  [ACTION_TYPE.VOTE_VIDEO_SUCCESS]: (state, {vote}) => {
+    const {vote: value, video: {id: videoId}, user: {_id: userId}} = vote;
+    const videoEntity = state[list][videoId];
+    const {votedBy} = videoEntity;
+    const hasVotedIndex = votedBy.findIndex((v) => v.user === userId);
+    console.log(vote);
+    let voted;
+    if (hasVotedIndex < 0) {
+      // insert new vote
+      voted = [...votedBy, {user: userId, vote: value}];
+    } else {
+      // update existing vote
+      voted = [...votedBy];
+      voted[hasVotedIndex].vote = value;
+    }
+    console.log({...state, list: {...state.list, [videoId]: {...videoEntity, votedBy: [...voted]}}});
+    return {...state, list: {...state.list, [videoId]: {...videoEntity, votedBy: [...voted]}}};
+  },
+  [ACTION_TYPE.VOTE_VIDEO_ERROR]: (state) => {
+    return state;
   }
 };
 

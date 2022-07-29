@@ -6,7 +6,8 @@ import {ACTION_TYPE} from '../constants';
 import {apiGetVideos, apiLogin, apiVoteVideo} from '../api';
 import {
   loginSuccess, loginError,
-  getVideosLoading, getVideosSuccess, getVideosError
+  getVideosLoading, getVideosSuccess, getVideosError,
+  voteVideoSuccess, voteVideoError
 } from './action';
 
 function* performLogin({payload}) {
@@ -39,10 +40,9 @@ function* performVoteVideo({videoId, value}) {
     const userId = yield select(({authentication: {currentUser: {_id}}}) => _id);
     const response = yield call(apiVoteVideo, {videoId, userId, value})
     const {data} = response;
-    console.log(data);
-    // yield put(getVideosSuccess({videos: data}));
+    yield put(voteVideoSuccess({vote: data}));
   } catch (error) {
-    // yield put(getVideosError());
+    yield put(voteVideoError());
   }
 }
 
