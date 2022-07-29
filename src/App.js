@@ -26,8 +26,9 @@ const MainApp = () => {
   const dispatcher = useDispatch();
   useEffect(() => {
     const key = 'fm-access-token';
-    const [, , token] = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-    if (token) {
+    const matches = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    if (matches && matches.length) {
+      const token = matches[2];
       apiVerifyUser({token})
         .then(function (res) {
           const {data: {authenticated, user}} = res;
