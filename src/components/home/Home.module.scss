@@ -36,6 +36,43 @@
           margin-bottom: 1rem;
         }
 
+        .voteBar {
+          margin-bottom: 1rem;
+          display: flex;
+
+
+          .btn {
+            outline: none;
+            border: 1px #8e8e8e solid;
+            border-radius: 50%;
+            padding: 1rem;
+            width: 5rem;
+            height: 5rem;
+            cursor: pointer;
+            background: var(--whiteSandColor) url('/grain.png');
+
+            &:first-child {
+              margin-right: 1rem;
+            }
+
+            .icon {
+              background: url('/thumbs-outline.svg') center center no-repeat;
+              display: inline-block;
+              width: 3rem;
+              height: 3rem;
+              transform: scale(0.8);
+
+              &.thumbsUp {
+                transform: scale(0.8, -0.8);
+              }
+
+              &.filled {
+                background-image: url('/thumbs-filled.svg');
+              }
+            }
+          }
+        }
+
         .desc {
           margin-bottom: 0.5rem;
         }

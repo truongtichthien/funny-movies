@@ -52,7 +52,6 @@ const handlersVideo = {
     const videoEntity = state[list][videoId];
     const {votedBy} = videoEntity;
     const hasVotedIndex = votedBy.findIndex((v) => v.user === userId);
-    console.log(vote);
     let voted;
     if (hasVotedIndex < 0) {
       // insert new vote
