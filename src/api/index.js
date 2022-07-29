@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+export const apiVerifyUser = ({token}) => axios.post('/api/users/verify', {token});
+
 export const apiLogin = ({username, password}) => axios.post('/api/users/login', {username, password});
 
 export const apiGetYoutubeInfo = ({id}) => axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&key=AIzaSyBqzfdL8xKDpjpDTjheXplZwrG0xUzUsW8`);

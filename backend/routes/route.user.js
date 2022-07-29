@@ -68,6 +68,22 @@
     login(req.body, res);
   });
 
+  router.post('/verify', function (req, res) {
+    const token = req.body.token;
+    if (!token) {
+      res.status(401).json({authenticated: false})
+    } else {
+      jwt.verify(token, 'SECRET_KEY', null, function (err) {
+        if (err) {
+          res.status(401).json({authenticated: false, expired: true})
+        } else {
+          const decoded = jwt.decode(token, null);
+          res.json({authenticated: true, user: _.pick(decoded.user, ['_id', 'username'])})
+        }
+      });
+    }
+  });
+
   module.exports = router;
 
 })();

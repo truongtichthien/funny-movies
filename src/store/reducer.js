@@ -20,13 +20,15 @@ const handlersAuth = {
     return {...state, [loading]: status};
   },
   [ACTION_TYPE.LOG_IN_SUCCESS]: (state, {payload: {authenticated, user, token}}) => {
-    // document.cookie = `fm-access-token=${token};`;
+    document.cookie = `fm-access-token=${token};`;
     return {...state, [loggedIn]: authenticated, [currentUser]: {...user, token}, [loading]: false};
   },
   [ACTION_TYPE.LOG_IN_ERROR]: (state) => {
+    document.cookie = 'fm-access-token=;';
     return {...state, [loggedIn]: false, [currentUser]: {}, [failed]: true};
   },
   [ACTION_TYPE.LOG_OUT]: (state) => {
+    document.cookie = 'fm-access-token=;';
     return {...state, [loggedIn]: false, [currentUser]: {}, [failed]: false};
   }
 };
