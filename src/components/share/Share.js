@@ -8,6 +8,8 @@ export default () => {
   const [url, setUrl] = useState('');
   const [validUrl, setValidUrl] = useState(false);
   const [sharing, setSharing] = useState(false);
+  const [shareFailed, setShareFailed] = useState('');
+  const [shareSuccess, setShareSuccess] = useState(false);
   const loggedIn = useSelector(({authentication: {loggedIn}}) => loggedIn);
   const currentUser = useSelector(({authentication: {currentUser}}) => currentUser);
 
@@ -18,6 +20,7 @@ export default () => {
 
   const handleShare = () => {
     setSharing(true);
+    setShareFailed('');
 
     return apiGetYoutubeInfo({id: validUrl})
       .then(function (response) {
@@ -32,20 +35,29 @@ export default () => {
             description: description.slice(0, 300),
             createdBy: username
           })
+            .then(function () {
+              setUrl('');
+              setValidUrl(false);
+              setShareSuccess(true);
+              window.setTimeout(() => {
+                setShareSuccess(false);
+              }, 2000)
+            })
             .catch(function (err) {
               const {response: {data}} = err;
+              setShareFailed(data.msg);
               console.error('Cannot share the video!', data);
             });
         } else {
+          setShareFailed('Video sharing failed! Please check video URL!');
           console.error('Retrieve video information failed!');
         }
       })
       .catch(function (err) {
+        setShareFailed('Video sharing failed! Please check video URL!');
         console.error('Retrieve video information failed!', err);
       })
       .finally(function () {
-        setUrl('');
-        setValidUrl(false);
         setSharing(false);
       });
   };
@@ -73,6 +85,8 @@ export default () => {
                   className={joinCls([cls.btn, cls.primaryBtn, (!validUrl || sharing) && cls.disabled])}
                   onClick={handleShare}>{sharing ? 'Sharing...' : 'Share'}
           </button>
+          {shareFailed && <div className={cls.errorMsg}>{shareFailed}</div>}
+          {shareSuccess && <div className={cls.successMsg}>Success!</div>}
         </fieldset>
       ) : <div className={cls.announcement}>You need to log-in to share a video!</div>}
     </div>

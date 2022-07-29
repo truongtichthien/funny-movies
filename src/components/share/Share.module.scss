@@ -88,6 +88,32 @@
         border-color: #8e8e8e;
       }
     }
+
+    .errorMsg {
+      color: var(--carrotColor);
+      font-size: 1.3rem;
+      height: 0;
+      transform: translateY(1rem);
+      align-self: center;
+
+      &::before {
+        content: 'Error';
+        background: var(--carrotColor);
+        color: var(--lightYellowSandColor);
+        border-radius: 0.3rem;
+        margin-right: 0.5rem;
+        padding: 0.2rem 0.5rem;
+        font-weight: bold;
+      }
+    }
+
+    .successMsg {
+      color: #155724;
+      font-size: 1.3rem;
+      height: 0;
+      transform: translateY(1rem);
+      align-self: center;
+    }
   }
 
   .announcement {
