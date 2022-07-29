@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
 import {getVideos, voteVideo} from '../../store/action';
+import {joinCls} from '../../utilities';
 import cls from './Home.module.scss';
-import {joinCls} from "../../utilities";
 
 const VoteCount = ({id}) => {
   const {votedBy} = useSelector(({videos: {list}}) => list[id]);
@@ -85,6 +86,18 @@ const VideoItem = ({id}) => {
       </div>
     </div>
   )
+};
+
+VoteCount.propTypes = {
+  id: PropTypes.string.isRequired
+};
+
+VoteOperator.propTypes = {
+  id: PropTypes.string.isRequired
+};
+
+VideoItem.propTypes = {
+  id: PropTypes.string.isRequired
 };
 
 export default () => {

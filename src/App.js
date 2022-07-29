@@ -11,7 +11,7 @@ import {loginSuccess} from './store/action';
 import Home from './components/home/Home';
 import Share from './components/share/Share';
 import AppSkeleton from './components/app/AppSkeleton';
-import Header from './components/header';
+import Header from './components/header/Header';
 import './App.css';
 import cls from './components/app/AppSkeleton.module.scss';
 
