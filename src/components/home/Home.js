@@ -4,7 +4,31 @@ import {getVideos, voteVideo} from '../../store/action';
 import cls from './Home.module.scss';
 import {joinCls} from "../../utilities";
 
-const VoteBar = ({id}) => {
+const VoteCount = ({id}) => {
+  const {votedBy} = useSelector(({videos: {list}}) => list[id]);
+  const [voteCount, setVoteCount] = useState({up: 0, down: 0});
+
+  useEffect(() => {
+    const count = votedBy.reduce((acc, ele) => {
+      const {vote} = ele;
+      let {up, down} = acc;
+      if (vote === 1) up = up + 1;
+      if (vote === -1) down = down + 1;
+      return {...acc, up, down};
+    }, {up: 0, down: 0});
+
+    setVoteCount(count);
+  }, [votedBy]);
+
+  return (
+    <div className={cls.voteCount}>
+      <span>{voteCount.up}<i className={joinCls([cls.thumbsIcon, cls.thumbsUp])}/></span>
+      <span>{voteCount.down}<i className={joinCls([cls.thumbsIcon])}/></span>
+    </div>
+  );
+};
+
+const VoteOperator = ({id}) => {
   const dispatcher = useDispatch();
   const userId = useSelector(({authentication: {currentUser: {_id}}}) => _id);
   const {_id: videoId, votedBy} = useSelector(({videos: {list}}) => list[id]);
@@ -26,19 +50,17 @@ const VoteBar = ({id}) => {
     }
   }, [votedBy]);
 
-  return (
-    <div className={cls.voteBar}>
-      {(voted === 0 || voted === 1) && (
-        <button type="button" className={cls.btn} onClick={handleVoteUp}>
-          <i className={joinCls([cls.icon, cls.thumbsUp, voted === 1 && cls.filled])}/>
-        </button>)}
-      {(voted === 0 || voted === -1) && (
-        <button type="button" className={cls.btn} onClick={handleVoteDown}>
-          <i className={joinCls([cls.icon, voted === -1 && cls.filled])}/>
-        </button>
-      )}
-    </div>
-  );
+  return (<div className={cls.voteOperator}>
+    {(voted === 0 || voted === 1) && (
+      <button type="button" className={cls.btn} onClick={handleVoteUp}>
+        <i className={joinCls([cls.thumbsIcon, cls.thumbsUp, voted === 1 && cls.filled])}/>
+      </button>)}
+    {(voted === 0 || voted === -1) && (
+      <button type="button" className={cls.btn} onClick={handleVoteDown}>
+        <i className={joinCls([cls.thumbsIcon, voted === -1 && cls.filled])}/>
+      </button>
+    )}
+  </div>);
 };
 
 const VideoItem = ({id}) => {
@@ -54,7 +76,10 @@ const VideoItem = ({id}) => {
       <div className={cls.info}>
         <div className={cls.title}>{title}</div>
         <div className={cls.sharedBy}>{`Shared by ${username}`}</div>
-        {loggedIn && <VoteBar id={id}/>}
+        <div className={cls.voteBar}>
+          <VoteCount id={id}/>
+          {loggedIn && <VoteOperator id={id}/>}
+        </div>
         <div className={cls.desc}>Description:</div>
         <div className={cls.desc}>{description}</div>
       </div>
